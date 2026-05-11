@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: senior-devops-deployment
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: senior-devops-app
+
+  template:
+    metadata:
+      labels:
+        app: senior-devops-app
+
+    spec:
+      containers:
+      - name: senior-devops-container
+        image: 660405908881.dkr.ecr.ap-south-1.amazonaws.com/senior-devops-app:v1
+
+        ports:
+        - containerPort: 5000
+
+        env:
+        - name: APP_ENV
+          value: "production"
+
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
